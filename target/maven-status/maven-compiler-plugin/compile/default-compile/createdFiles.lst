@@ -1,0 +1,4 @@
+bank/account/repositories/CustomerRepository.class
+bank/account/models/Customer.class
+bank/account/DemoApplication.class
+bank/account/controllers/CustomerController.class
