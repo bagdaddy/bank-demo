@@ -2,13 +2,12 @@ package bank.account.models;
 
 import javax.persistence.*;
 
-import org.aspectj.lang.annotation.After;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener; import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.Date;
+
+import java.util.*;
 
 @Entity
 @Table(name = "customers")
@@ -21,6 +20,16 @@ public class Customer {
 
     @Column(name="name")
     private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @JsonIgnore
+    @Column(nullable = false)
+    private String password;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Account> accounts = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,6 +59,43 @@ public class Customer {
 
     public Customer setName(String name) {
         this.name = name;
+
+        return this;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public Customer setEmail(String email) {
+        this.email = email;
+
+        return this;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public Customer setPassword(String password) {
+        this.password = password;
+
+        return this;
+    }
+
+    public Set<Account> getAccounts() {
+        return this.accounts;
+    }
+
+    public Customer setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+
+        return this;
+    }
+
+    public Customer addAccount(Account account) {
+        account.setCustomer(this);
+        this.accounts.add(account);
 
         return this;
     }
