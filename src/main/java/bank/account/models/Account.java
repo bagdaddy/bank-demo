@@ -7,9 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "accounts")
@@ -26,6 +24,9 @@ public class Account {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Transaction> transactions = new HashSet<>();
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Balance> balances = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -67,6 +68,17 @@ public class Account {
         transaction.setAccount(this);
         transaction.setCustomer(this.customer);
         this.transactions.add(transaction);
+
+        return this;
+    }
+
+    public List<Balance> getBalances() {
+        return this.balances;
+    }
+
+    public Account addBalance(Balance balance) {
+        balance.setAccount(this);
+        this.balances.add(balance);
 
         return this;
     }
