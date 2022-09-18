@@ -1,0 +1,4 @@
+account_id,date,customer_id,comment,amount,currency
+13,2022-08-13T12:00:15,27,vogti mokesciai,10000,USD
+13,2022-08-23T12:00:15,27,chaltura,2300,USD
+13,2022-08-25T12:00:15,27,stimulus check,1100,USD

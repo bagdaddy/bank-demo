@@ -22,9 +22,11 @@ public class Account {
     @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Transaction> transactions = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Balance> balances = new ArrayList<>();
 
@@ -66,7 +68,6 @@ public class Account {
 
     public Account addTransaction(Transaction transaction) {
         transaction.setAccount(this);
-        transaction.setCustomer(this.customer);
         this.transactions.add(transaction);
 
         return this;

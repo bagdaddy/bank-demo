@@ -2,8 +2,6 @@ package bank.account.DTO.parseable;
 
 import com.opencsv.bean.CsvBindByName;
 
-import java.time.LocalDateTime;
-
 public class TransactionDTO {
     @CsvBindByName(column="account_id")
     private Long account;
@@ -60,8 +58,9 @@ public class TransactionDTO {
         return this.currency;
     }
 
-    public void setAccount(Long account) {
+    public TransactionDTO setAccount(Long account) {
         this.account = account;
+        return null;
     }
 
     public void setCustomer(Long customer) {

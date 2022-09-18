@@ -14,7 +14,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public CustomerAuthTokenDTO login(@RequestBody CustomerLoginDTO customerLoginDTO) {
-        System.console().printf("test");
         String jwtToken = this.authService.authenticateUser(customerLoginDTO);
 
         return (new CustomerAuthTokenDTO())
