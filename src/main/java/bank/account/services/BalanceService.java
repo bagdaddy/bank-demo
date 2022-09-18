@@ -27,7 +27,7 @@ public class BalanceService {
     @Autowired
     TransactionRepository transactionRepository;
 
-    public void importTransactions(List<TransactionDTO> transactions) throws InsufficientFundsException {
+    public void importTransactions(List<TransactionDTO> transactions) {
         for (TransactionDTO transactionDTO: transactions) {
             Optional<Account> accountQuery = this.accountRepository.findById(transactionDTO.getAccount());
             Optional<Customer> customerQuery = this.customerRepository.findById(transactionDTO.getCustomer());
@@ -80,7 +80,7 @@ public class BalanceService {
         return new ArrayList<>(balances.values());
     }
 
-    private Balance calculateNewBalance(Transaction transaction) throws InsufficientFundsException {
+    private Balance calculateNewBalance(Transaction transaction) {
         Account account = transaction.getAccount();
         List<Balance> balances = account.getBalances();
         double newBalance = 0;
@@ -93,10 +93,6 @@ public class BalanceService {
             newBalance += transaction.getAmount();
         } else {
             newBalance -= transaction.getAmount();
-        }
-
-        if (newBalance < 0) {
-            throw new InsufficientFundsException("Transaction impossible - insufficient funds");
         }
 
         return new Balance()
