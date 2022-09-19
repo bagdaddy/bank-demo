@@ -1,14 +1,12 @@
 package bank.account.controllers;
 
+import bank.account.DTO.CustomerCreateRequestDTO;
+import bank.account.adapters.CustomerAdapter;
 import bank.account.models.Customer;
 import bank.account.repositories.CustomerRepository;
 import bank.account.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,9 @@ public class CustomerController {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    CustomerAdapter customerAdapter;
 
     @Autowired
     AuthService authService;
@@ -32,9 +33,10 @@ public class CustomerController {
         return customerList;
     }
 
-    @Secured("ROLE_USER")
-    @GetMapping("/me")
-    public Customer getAuthenticatedUserDetails() {
-        return this.authService.getAuthenticatedCustomer();
+    @PostMapping("/customers")
+    public Customer createCustomer(@RequestBody CustomerCreateRequestDTO customerCreateDTO) {
+        return this.customerRepository.save(
+                this.customerAdapter.dtoToModel(customerCreateDTO)
+        );
     }
 }

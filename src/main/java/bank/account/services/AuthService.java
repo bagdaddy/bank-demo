@@ -1,6 +1,6 @@
 package bank.account.services;
 
-import bank.account.DTO.CustomerLoginDTO;
+import bank.account.DTO.CustomerLoginRequestDTO;
 import bank.account.models.Customer;
 import bank.account.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class AuthService {
     @Value("${jwt.secret}")
     String secretKey;
 
-    public String authenticateUser(CustomerLoginDTO customerLoginDTO) throws AccessDeniedException {
+    public String authenticateUser(CustomerLoginRequestDTO customerLoginDTO) throws AccessDeniedException {
         Customer customer = this.customerRepository.findByEmail(customerLoginDTO.getEmail());
 
         if(customer == null) {

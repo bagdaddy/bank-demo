@@ -1,4 +1,4 @@
-package bank.account.adapters;
+package bank.account.services.csv;
 
 import java.io.InputStreamReader;
 import java.util.List;

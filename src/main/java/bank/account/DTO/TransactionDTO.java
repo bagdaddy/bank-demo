@@ -1,4 +1,4 @@
-package bank.account.DTO.parseable;
+package bank.account.DTO;
 
 import com.opencsv.bean.CsvBindByName;
 

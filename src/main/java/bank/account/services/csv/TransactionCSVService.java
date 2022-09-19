@@ -1,6 +1,6 @@
 package bank.account.services.csv;
 
-import bank.account.DTO.parseable.TransactionDTO;
+import bank.account.DTO.TransactionDTO;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;

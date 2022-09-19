@@ -2,9 +2,8 @@ package bank.account.controllers;
 
 import bank.account.DTO.BalanceResponseDTO;
 import bank.account.DTO.BankStatementRequest;
-import bank.account.DTO.parseable.TransactionDTO;
+import bank.account.DTO.TransactionDTO;
 import bank.account.adapters.TransactionAdapter;
-import bank.account.exceptions.InsufficientFundsException;
 import bank.account.services.AccountService;
 import bank.account.services.BalanceService;
 import bank.account.services.csv.TransactionCSVService;
@@ -37,7 +36,7 @@ public class AccountBalanceController {
     TransactionAdapter transactionAdapter;
 
     @PostMapping("/import")
-    public void importStatement(@RequestParam("file") MultipartFile file) throws IOException, InsufficientFundsException {
+    public void importStatement(@RequestParam("file") MultipartFile file) throws IOException {
         InputStreamReader reader = new InputStreamReader(file.getInputStream());
         List<TransactionDTO> transactionObjects = this.transactionCSVService.parseCSV(reader);
 

@@ -1,6 +1,6 @@
 package bank.account.adapters;
 
-import bank.account.DTO.parseable.TransactionDTO;
+import bank.account.DTO.TransactionDTO;
 import bank.account.models.Transaction;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TransactionAdapter {
+public class TransactionAdapter implements IModelToDTOAdapter<TransactionDTO, Transaction> {
     public List<TransactionDTO> modelsToDTOs(List<Transaction> transactions) {
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
 

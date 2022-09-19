@@ -2,9 +2,8 @@ package bank.account.services;
 
 import bank.account.DTO.BalanceResponseDTO;
 import bank.account.DTO.BankStatementRequest;
-import bank.account.DTO.parseable.TransactionDTO;
+import bank.account.DTO.TransactionDTO;
 import bank.account.enums.Currency;
-import bank.account.exceptions.InsufficientFundsException;
 import bank.account.models.Account;
 import bank.account.models.Balance;
 import bank.account.models.Customer;
@@ -12,7 +11,6 @@ import bank.account.models.Transaction;
 import bank.account.repositories.AccountRepository;
 import bank.account.repositories.CustomerRepository;
 import bank.account.repositories.TransactionRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -18,17 +18,14 @@ services:
       - db:/var/lib/mysql
       - ./docker/mysql:/docker-entrypoint-initdb.d
 #  app:
-#    image: bank-api
+#    image: bank-app
 #    container_name: bank-app
 #    build:
 #      dockerfile: ./Dockerfile
-#    volumes:
-#      - ${APPLICATION_ROOT_FOLDER}:/var/www/html
-#      - ${MAVEN_SETTINGS_FOLDER}:/root/.m2
 #    networks:
 #      - bank-net
 #    ports:
-#      - "80:80"
+#      - "8080:8080"
 #    depends_on:
 #      - bank-mysql
 volumes:

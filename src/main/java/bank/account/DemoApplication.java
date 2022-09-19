@@ -1,9 +1,7 @@
 package bank.account;
 
-import bank.account.enums.Currency;
 import bank.account.models.Account;
 import bank.account.models.Customer;
-import bank.account.models.Transaction;
 import bank.account.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,12 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.*;
 
 @SpringBootApplication
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -47,15 +40,6 @@ public class DemoApplication {
 				// save a few customers
 				repository.save(customer1);
 
-				Transaction transaction1 = new Transaction()
-					.setAmount(200.75)
-					.setCurrency(Currency.EUR)
-					.setComment("Very nice first transaction")
-					.setDate(LocalDateTime.parse("2022-09-03T15:02:03"))
-					.setCustomer(customer1)
-				;
-
-				account1.addTransaction(transaction1);
 				customer1.addAccount(account2);
 
 				repository.save(customer1);

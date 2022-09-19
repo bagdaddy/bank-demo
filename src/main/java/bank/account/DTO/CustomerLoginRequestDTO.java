@@ -1,10 +1,10 @@
 package bank.account.DTO;
 
-public class CustomerLoginDTO {
+public class CustomerLoginRequestDTO {
     private String email;
     private String password;
 
-    public CustomerLoginDTO(String email, String password) {
+    public CustomerLoginRequestDTO(String email, String password) {
         this.email = email;
         this.password = password;
     }

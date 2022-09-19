@@ -2,7 +2,7 @@ package bank.account.unit;
 
 import bank.account.DTO.BalanceResponseDTO;
 import bank.account.DTO.BankStatementRequest;
-import bank.account.DTO.parseable.TransactionDTO;
+import bank.account.DTO.TransactionDTO;
 import bank.account.DemoApplicationTests;
 import bank.account.enums.Currency;
 import bank.account.models.Account;
