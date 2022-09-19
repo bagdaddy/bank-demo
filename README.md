@@ -21,3 +21,12 @@ docker run --network bank-net --name bank-app -p 8080:8080 -d bank-app
     <li>POST: /api/balance/export accepts json as parameters (accounts: [id1, id2], fromDate: "2022-09-03", toDate: "2022-09-03")</li>
     <li>GET: /api/balance/{accountId} accepts fromDate and toDate as query parameters. Will return an array of balances by currency. Currently only USD,CAD and EUR are available currencies</li>
 </ul>
+
+<h3>Entities:</h3>
+Transaction: a record of a money transfer consisting of account, beneficiary (an existing account), amount, currency
+
+Balance: a record of how much a certain account had in a given currency at some point. Right now it's just extra, because balance calculations are done by summing all transactions for a given period
+
+Customer: a bank customer that may have more than one account
+
+Account: a bank account belonging to some customer. Has many transactions and many balances

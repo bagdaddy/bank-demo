@@ -25,6 +25,7 @@ public class Balance {
     @JoinColumn(name="transaction_id")
     private Transaction transaction;
 
+    @Enumerated(EnumType.STRING)
     private Currency currency;
 
     @Column(nullable = false, updatable = false)
