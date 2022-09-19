@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: bank-mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_DATABASE=bank
+      - MYSQL_USER=app
+      - MYSQL_ROOT_PASSWORD=app
+      - MYSQL_PASSWORD=app
+    ports:
+      - '3306:3306'
+    networks:
+      - bank-net
+    volumes:
+      - db:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+#  app:
+#    image: bank-api
+#    container_name: bank-app
+#    build:
+#      dockerfile: ./Dockerfile
+#    volumes:
+#      - ${APPLICATION_ROOT_FOLDER}:/var/www/html
+#      - ${MAVEN_SETTINGS_FOLDER}:/root/.m2
+#    networks:
+#      - bank-net
+#    ports:
+#      - "80:80"
+#    depends_on:
+#      - bank-mysql
+volumes:
+  db:
+    driver: local
+
+networks:
+  bank-net:
+    driver: bridge
+    name: 'bank-net'

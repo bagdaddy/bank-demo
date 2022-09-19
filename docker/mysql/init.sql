@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS `bank`;
+CREATE DATABASE IF NOT EXISTS `banktest`;
+
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'local';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
