@@ -26,9 +26,6 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private IAuthenticationFacade authenticationFacade;
-
     @Value("${jwt.secret}")
     String secretKey;
 
@@ -44,10 +41,6 @@ public class AuthService {
         }
 
         return this.getJWTToken(customerLoginDTO.getEmail());
-    }
-
-    public String encodePassword(String password) {
-        return passwordEncoder.encode(password);
     }
 
     private String getJWTToken(String email) {
@@ -68,12 +61,5 @@ public class AuthService {
                         secretKey.getBytes()).compact();
 
         return "Bearer " + token;
-    }
-
-    public Customer getAuthenticatedCustomer() {
-        Authentication authentication = authenticationFacade.getAuthentication();
-        String email = authentication.getName();
-
-        return this.customerRepository.findByEmail(email);
     }
 }

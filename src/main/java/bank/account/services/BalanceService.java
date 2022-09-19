@@ -9,6 +9,7 @@ import bank.account.models.Balance;
 import bank.account.models.Customer;
 import bank.account.models.Transaction;
 import bank.account.repositories.AccountRepository;
+import bank.account.repositories.BalanceRepository;
 import bank.account.repositories.CustomerRepository;
 import bank.account.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class BalanceService {
@@ -87,12 +90,9 @@ public class BalanceService {
 
     private Balance calculateNewBalance(Transaction transaction) {
         Account account = transaction.getAccount();
-        List<Balance> balances = account.getBalances();
-        double newBalance = 0;
+        Balance latestBalance = this.getLatestBalance(transaction);
 
-        if (!balances.isEmpty()) {
-            newBalance = balances.get(balances.size() - 1).getBalance();
-        }
+        double newBalance = latestBalance != null ? latestBalance.getBalance() : 0;
 
         if (transaction.getCustomer().equals(account.getCustomer())) {
             newBalance += transaction.getAmount();
@@ -101,8 +101,27 @@ public class BalanceService {
         }
 
         return new Balance()
+                .setCurrency(transaction.getCurrency())
                 .setTransaction(transaction)
                 .setBalance(newBalance)
         ;
+    }
+
+    private Balance getLatestBalance(Transaction transaction) {
+        Account account = transaction.getAccount();
+        List<Balance> balances = account.getBalances();
+        Balance latestBalance = null;
+
+        if (balances.size() > 0) {
+            Predicate<Balance> byCurrency = balance -> balance.getCurrency().equals(transaction.getCurrency());
+
+            List<Balance> latestBalances = balances.stream().filter(byCurrency).toList();
+
+            if (latestBalances.size() > 0) {
+                latestBalance = latestBalances.get(latestBalances.size() - 1);
+            }
+        }
+
+        return latestBalance;
     }
 }

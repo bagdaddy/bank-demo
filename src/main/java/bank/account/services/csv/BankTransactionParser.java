@@ -32,7 +32,7 @@ public class BankTransactionParser implements CSVParser<TransactionDTO> {
 
     public void writeDataToCsvStream(List<TransactionDTO> transactions, HttpServletResponse response)
             throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
-        String filename = "Employee-List.csv";
+        String filename = "statement.csv";
 
         response.setContentType("text/csv");
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION,

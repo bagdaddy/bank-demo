@@ -1,5 +1,6 @@
 package bank.account.models;
 
+import bank.account.enums.Currency;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,6 +24,8 @@ public class Balance {
     @OneToOne
     @JoinColumn(name="transaction_id")
     private Transaction transaction;
+
+    private Currency currency;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,6 +51,10 @@ public class Balance {
         return this.account;
     }
 
+    public Currency getCurrency() {
+        return this.currency;
+    }
+
     public Balance setAccount(Account account) {
         this.account = account;
 
@@ -60,6 +67,12 @@ public class Balance {
 
     public Balance setTransaction(Transaction transaction) {
         this.transaction = transaction;
+
+        return this;
+    }
+
+    public Balance setCurrency(Currency currency) {
+        this.currency = currency;
 
         return this;
     }
