@@ -10,9 +10,9 @@ docker-compose up -d --build
 docker build -t bank-app .
 docker run --network bank-net --name bank-app -p 8080:8080 -d bank-app
 
+<br/>
 **for some reason the app container creation doesn't work from the docker-compose.yml file (logs suggest that the application can't reach the database for some reason)
 
-<br/>
 <h3>Endpoints:</h3>
 <ul>
     <li>POST: /api/customers for creating a customer (created only for demo purposes, even though a couple of customers are created in DemoApplication already)</li>
