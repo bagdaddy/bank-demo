@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,12 +31,13 @@ public class DemoApplication {
 	}
 
 	@Bean
+	@Profile("!test")
 	public CommandLineRunner demo(CustomerRepository repository) {
 		return (args) -> {
 			if (repository.count() == 0) {
 				Customer customer1 = new Customer()
 					.setName("John cena")
-					.setEmail("john@cena.com")
+					.setEmail("johnas@cena.com")
 					.setPassword(this.passwordEncoder.encode("johncenabest123"))
 				;
 
@@ -50,6 +52,7 @@ public class DemoApplication {
 					.setCurrency(Currency.EUR)
 					.setComment("Very nice first transaction")
 					.setDate(LocalDateTime.parse("2022-09-03T15:02:03"))
+					.setCustomer(customer1)
 				;
 
 				account1.addTransaction(transaction1);

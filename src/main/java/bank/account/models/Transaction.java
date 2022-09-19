@@ -20,7 +20,7 @@ public class Transaction {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="account_id", nullable = false)
     private Account account;
 

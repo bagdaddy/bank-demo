@@ -12,6 +12,7 @@ import bank.account.models.Transaction;
 import bank.account.repositories.AccountRepository;
 import bank.account.repositories.CustomerRepository;
 import bank.account.repositories.TransactionRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,9 @@ public class BalanceService {
     @Autowired
     TransactionRepository transactionRepository;
 
-    public void importTransactions(List<TransactionDTO> transactions) {
+    public List<Transaction> importTransactions(List<TransactionDTO> transactions) {
+        List<Transaction> createdTransactions = new ArrayList<>();
+
         for (TransactionDTO transactionDTO: transactions) {
             Optional<Account> accountQuery = this.accountRepository.findById(transactionDTO.getAccount());
             Optional<Customer> customerQuery = this.customerRepository.findById(transactionDTO.getCustomer());
@@ -50,8 +53,12 @@ public class BalanceService {
                     .addBalance(this.calculateNewBalance(transaction))
             ;
 
+            createdTransactions.add(transaction);
+
             this.accountRepository.save(account);
         }
+
+        return createdTransactions;
     }
 
     public List<BalanceResponseDTO> calculateBalances(BankStatementRequest bankStatementRequest) {

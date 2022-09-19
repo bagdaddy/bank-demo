@@ -23,11 +23,11 @@ public class Account {
     private Customer customer;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Transaction> transactions = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Balance> balances = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)

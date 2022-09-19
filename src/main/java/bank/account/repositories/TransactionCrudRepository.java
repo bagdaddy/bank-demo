@@ -11,6 +11,5 @@ import java.util.List;
 
 @Repository
 public interface TransactionCrudRepository extends CrudRepository<Transaction, Long> {
-    @Query( value="select * from transactions where account_id in :ids and date < :toDate and date > :fromDate", nativeQuery = true )
-    List<Transaction> findByAccountIds(@Param("ids") List<Long> accountIdList, @Param("toDate")String date, @Param("fromDate") String fromDate);
+
 }

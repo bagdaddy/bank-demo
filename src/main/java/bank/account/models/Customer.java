@@ -29,7 +29,7 @@ public class Customer {
     private String password;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Account> accounts = new HashSet<>();
+    private List<Account> accounts = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -83,11 +83,11 @@ public class Customer {
         return this;
     }
 
-    public Set<Account> getAccounts() {
+    public List<Account> getAccounts() {
         return this.accounts;
     }
 
-    public Customer setAccounts(Set<Account> accounts) {
+    public Customer setAccounts(List<Account> accounts) {
         this.accounts = accounts;
 
         return this;
